@@ -6,30 +6,77 @@
 //
 
 import XCTest
+import Hamcrest
 
-class BaseStoreTests: XCTestCase {
+@testable import BaseStore
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+private enum UserStoreTestKey: BaseStoreKey {
+    case piValue
+    
+    var key: String {
+        switch self {
+        case .piValue: return "name"
         }
     }
+}
 
+private final class UserDefaultsMock: UserDefaults {
+    
+    private var store: [String: Any?] = [:]
+    
+    override func set(_ value: Any?, forKey defaultName: String) {
+        store[defaultName] = value
+    }
+    
+    override func object(forKey defaultName: String) -> Any? {
+        return store[defaultName] as? Any
+    }
+    
+    override func removeObject(forKey defaultName: String) {
+        store.removeValue(forKey: defaultName)
+    }
+}
+
+class BaseStoreTests: XCTestCase {
+    
+    private var mock: UserDefaultsMock!
+    private var sut: UserStore!
+    
+    override func setUp() {
+        super.setUp()
+        
+        mock = UserDefaultsMock()
+        sut = UserStore(userDefaults: mock)
+    }
+    
+    override func tearDown() {
+        mock = nil
+        sut = nil
+        
+        super.tearDown()
+    }
+    
+    // MARK: Tests
+    
+    func test_settingAndRecievingValue() {
+        let value = Double.pi
+        
+        sut.set(value: value, forKey: UserStoreTestKey.piValue)
+        
+        let recievedValue: Double? = sut.recieve(forKey: UserStoreTestKey.piValue)
+        
+        assertThat(value == recievedValue)
+    }
+    
+    func test_removingValue() {
+        let piValue = Double.pi
+        
+        sut.set(value: piValue, forKey: UserStoreTestKey.piValue)
+        
+        sut.remove(forKey: UserStoreTestKey.piValue)
+        
+        let recievedValue: Double? = sut.recieve(forKey: UserStoreTestKey.piValue)
+        
+        assertThat(recievedValue, nilValue())
+    }
 }
