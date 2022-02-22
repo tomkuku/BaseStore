@@ -20,28 +20,31 @@ enum UserStoreKey: BaseStoreKey {
 }
 
 protocol BaseStore {
-    func set<T>(value: T, forKey key: BaseStoreKey)
-    func recieve<T>(forKey key: BaseStoreKey) -> T?
-    func remove(forKey key: BaseStoreKey)
+    associatedtype Key: BaseStoreKey
+    func set<T>(value: T, forKey key: Key)
+    func recieve<T>(forKey key: Key) -> T?
+    func remove(forKey key: Key)
 }
 
-final class UserStore: BaseStore {
-        
+final class UserStore<KEY: BaseStoreKey>: BaseStore {
+    
+    typealias Key = KEY
+    
     private let userDefaults: UserDefaults
     
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
     
-    func set<T>(value: T, forKey key: BaseStoreKey) {
+    func set<T>(value: T, forKey key: Key) {
         userDefaults.set(value, forKey: key.key)
     }
     
-    func recieve<T>(forKey key: BaseStoreKey) -> T? {
+    func recieve<T>(forKey key: Key) -> T? {
         return userDefaults.object(forKey: key.key) as? T
     }
     
-    func remove(forKey key: BaseStoreKey) {
+    func remove(forKey key: Key) {
         userDefaults.removeObject(forKey: key.key)
     }
 }

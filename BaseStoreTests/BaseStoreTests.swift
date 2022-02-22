@@ -15,7 +15,7 @@ private enum UserStoreTestKey: BaseStoreKey {
     
     var key: String {
         switch self {
-        case .piValue: return "name"
+        case .piValue: return "pi"
         }
     }
 }
@@ -40,7 +40,7 @@ private final class UserDefaultsMock: UserDefaults {
 class BaseStoreTests: XCTestCase {
     
     private var mock: UserDefaultsMock!
-    private var sut: UserStore!
+    private var sut: UserStore<UserStoreTestKey>!
     
     override func setUp() {
         super.setUp()
@@ -61,9 +61,9 @@ class BaseStoreTests: XCTestCase {
     func test_settingAndRecievingValue() {
         let value = Double.pi
         
-        sut.set(value: value, forKey: UserStoreTestKey.piValue)
+        sut.set(value: value, forKey: .piValue)
         
-        let recievedValue: Double? = sut.recieve(forKey: UserStoreTestKey.piValue)
+        let recievedValue: Double? = sut.recieve(forKey: .piValue)
         
         assertThat(value == recievedValue)
     }
@@ -71,11 +71,11 @@ class BaseStoreTests: XCTestCase {
     func test_removingValue() {
         let piValue = Double.pi
         
-        sut.set(value: piValue, forKey: UserStoreTestKey.piValue)
+        sut.set(value: piValue, forKey: .piValue)
         
-        sut.remove(forKey: UserStoreTestKey.piValue)
+        sut.remove(forKey: .piValue)
         
-        let recievedValue: Double? = sut.recieve(forKey: UserStoreTestKey.piValue)
+        let recievedValue: Double? = sut.recieve(forKey: .piValue)
         
         assertThat(recievedValue, nilValue())
     }
