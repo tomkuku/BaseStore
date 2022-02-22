@@ -13,7 +13,18 @@
 		878B697D27C4E8A600A035A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 878B697B27C4E8A600A035A4 /* Main.storyboard */; };
 		878B697F27C4E8A800A035A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 878B697E27C4E8A800A035A4 /* Assets.xcassets */; };
 		878B698227C4E8A800A035A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 878B698027C4E8A800A035A4 /* LaunchScreen.storyboard */; };
+		878B699027C4E9F700A035A4 /* BaseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		878B699127C4E9F700A035A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 878B696A27C4E8A600A035A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 878B697127C4E8A600A035A4;
+			remoteInfo = BaseStore;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		878B697227C4E8A600A035A4 /* BaseStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,10 +35,19 @@
 		878B697E27C4E8A800A035A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		878B698127C4E8A800A035A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		878B698327C4E8A800A035A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		878B698D27C4E9F700A035A4 /* BaseStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BaseStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		878B696F27C4E8A600A035A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878B698A27C4E9F700A035A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				878B697427C4E8A600A035A4 /* BaseStore */,
+				878B698E27C4E9F700A035A4 /* BaseStoreTests */,
 				878B697327C4E8A600A035A4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				878B697227C4E8A600A035A4 /* BaseStore.app */,
+				878B698D27C4E9F700A035A4 /* BaseStoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +87,14 @@
 				878B698327C4E8A800A035A4 /* Info.plist */,
 			);
 			path = BaseStore;
+			sourceTree = "<group>";
+		};
+		878B698E27C4E9F700A035A4 /* BaseStoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */,
+			);
+			path = BaseStoreTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +117,24 @@
 			productReference = 878B697227C4E8A600A035A4 /* BaseStore.app */;
 			productType = "com.apple.product-type.application";
 		};
+		878B698C27C4E9F700A035A4 /* BaseStoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 878B699327C4E9F700A035A4 /* Build configuration list for PBXNativeTarget "BaseStoreTests" */;
+			buildPhases = (
+				878B698927C4E9F700A035A4 /* Sources */,
+				878B698A27C4E9F700A035A4 /* Frameworks */,
+				878B698B27C4E9F700A035A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				878B699227C4E9F700A035A4 /* PBXTargetDependency */,
+			);
+			name = BaseStoreTests;
+			productName = BaseStoreTests;
+			productReference = 878B698D27C4E9F700A035A4 /* BaseStoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -99,6 +147,10 @@
 				TargetAttributes = {
 					878B697127C4E8A600A035A4 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					878B698C27C4E9F700A035A4 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 878B697127C4E8A600A035A4;
 					};
 				};
 			};
@@ -116,6 +168,7 @@
 			projectRoot = "";
 			targets = (
 				878B697127C4E8A600A035A4 /* BaseStore */,
+				878B698C27C4E9F700A035A4 /* BaseStoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +181,13 @@
 				878B698227C4E8A800A035A4 /* LaunchScreen.storyboard in Resources */,
 				878B697F27C4E8A800A035A4 /* Assets.xcassets in Resources */,
 				878B697D27C4E8A600A035A4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878B698B27C4E9F700A035A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +204,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		878B698927C4E9F700A035A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				878B699027C4E9F700A035A4 /* BaseStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		878B699227C4E9F700A035A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 878B697127C4E8A600A035A4 /* BaseStore */;
+			targetProxy = 878B699127C4E9F700A035A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		878B697B27C4E8A600A035A4 /* Main.storyboard */ = {
@@ -336,6 +412,40 @@
 			};
 			name = Release;
 		};
+		878B699427C4E9F700A035A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tk.BaseStoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseStore.app/BaseStore";
+			};
+			name = Debug;
+		};
+		878B699527C4E9F700A035A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tk.BaseStoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseStore.app/BaseStore";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -353,6 +463,15 @@
 			buildConfigurations = (
 				878B698727C4E8A800A035A4 /* Debug */,
 				878B698827C4E8A800A035A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		878B699327C4E9F700A035A4 /* Build configuration list for PBXNativeTarget "BaseStoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				878B699427C4E9F700A035A4 /* Debug */,
+				878B699527C4E9F700A035A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
