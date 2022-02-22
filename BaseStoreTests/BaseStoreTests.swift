@@ -11,11 +11,11 @@ import Hamcrest
 @testable import BaseStore
 
 private enum UserStoreTestKey: BaseStoreKey {
-    case piValue
+    case testValue
     
     var key: String {
         switch self {
-        case .piValue: return "pi"
+        case .testValue: return "test_value"
         }
     }
 }
@@ -59,23 +59,39 @@ class BaseStoreTests: XCTestCase {
     // MARK: Tests
     
     func test_settingAndRecievingValue() {
-        let value = Double.pi
+        let value: Int = 71
         
-        sut.set(value: value, forKey: .piValue)
+        sut.set(value: value, forKey: .testValue)
         
-        let recievedValue: Double? = sut.recieve(forKey: .piValue)
+        let recievedValue: Int? = sut.recieve(forKey: .testValue)
+        
+        assertThat(value == recievedValue)
+    }
+    
+    func test_updatingAndRecievingValue() {
+        var value: Int = 45
+        
+        sut.set(value: value, forKey: .testValue)
+        
+        var recievedValue: Int? = sut.recieve(forKey: .testValue)
+        
+        value = 99
+        
+        sut.set(value: value, forKey: .testValue)
+        
+        recievedValue = sut.recieve(forKey: .testValue)
         
         assertThat(value == recievedValue)
     }
     
     func test_removingValue() {
-        let piValue = Double.pi
+        let piValue: Int = 88
         
-        sut.set(value: piValue, forKey: .piValue)
+        sut.set(value: piValue, forKey: .testValue)
         
-        sut.remove(forKey: .piValue)
+        sut.remove(forKey: .testValue)
         
-        let recievedValue: Double? = sut.recieve(forKey: .piValue)
+        let recievedValue: Int? = sut.recieve(forKey: .testValue)
         
         assertThat(recievedValue, nilValue())
     }
