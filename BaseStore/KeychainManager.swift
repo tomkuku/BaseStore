@@ -24,18 +24,38 @@ final class KeychainManager {
             kSecReturnAttributes: true
         ] as CFDictionary
         
-        let status = SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query, nil)
         
         if status == errSecDuplicateItem {
             throw KeychainError.duplicateItem
-        }
-        
-        guard status == errSecSuccess else {
+            
+        } else if status != errSecSuccess {
             throw KeychainError.unexpectedStatus(status)
         }
     }
     
     func readPasswordData(forAccount account: String) throws -> Data {
-        throw KeychainError.itemNotFound
+        let query = [
+            kSecAttrAccount: account,
+            kSecClass: kSecClassInternetPassword,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecReturnData: kCFBooleanTrue!
+        ] as CFDictionary
+        
+        var itemCopy: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &itemCopy)
+        
+        if status == errSecItemNotFound {
+            throw KeychainError.itemNotFound
+            
+        } else if status != errSecSuccess {
+            throw KeychainError.unexpectedStatus(status)
+        }
+        
+        guard let password = itemCopy as? Data else {
+            throw KeychainError.invalidItemFormat
+        }
+        
+        return password
     }
 }

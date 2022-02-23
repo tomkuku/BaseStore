@@ -52,7 +52,7 @@ class KeychainManagerTests: XCTestCase {
         var readPasswordData: Data?
         
         assertNotThrows(readPasswordData = try sut.readPasswordData(forAccount: account))
-            
+        
         let readPassword = String(data: readPasswordData ?? Data(), encoding: .utf8)
         
         assertThat(readPassword, equalTo(readPassword))
