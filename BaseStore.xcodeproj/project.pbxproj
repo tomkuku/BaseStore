@@ -16,7 +16,7 @@
 		878B697D27C4E8A600A035A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 878B697B27C4E8A600A035A4 /* Main.storyboard */; };
 		878B697F27C4E8A800A035A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 878B697E27C4E8A800A035A4 /* Assets.xcassets */; };
 		878B698227C4E8A800A035A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 878B698027C4E8A800A035A4 /* LaunchScreen.storyboard */; };
-		878B699027C4E9F700A035A4 /* BaseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */; };
+		878B699027C4E9F700A035A4 /* UserStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B698F27C4E9F700A035A4 /* UserStoreTests.swift */; };
 		879745B127C629A200961864 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879745B027C629A200961864 /* KeychainManagerTests.swift */; };
 		879745B727C65C7200961864 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879745B627C65C7200961864 /* UserStore.swift */; };
 		879745B927C65CE900961864 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879745B827C65CE900961864 /* SecureStore.swift */; };
@@ -47,7 +47,7 @@
 		878B698127C4E8A800A035A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		878B698327C4E8A800A035A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		878B698D27C4E9F700A035A4 /* BaseStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BaseStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStoreTests.swift; sourceTree = "<group>"; };
+		878B698F27C4E9F700A035A4 /* UserStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoreTests.swift; sourceTree = "<group>"; };
 		879745B027C629A200961864 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		879745B627C65C7200961864 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		879745B827C65CE900961864 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				879745B027C629A200961864 /* KeychainManagerTests.swift */,
-				878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */,
+				878B698F27C4E9F700A035A4 /* UserStoreTests.swift */,
 				879745BA27C660E600961864 /* SecureStoreTests.swift */,
 			);
 			path = BaseStoreTests;
@@ -355,7 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				878B699027C4E9F700A035A4 /* BaseStoreTests.swift in Sources */,
+				878B699027C4E9F700A035A4 /* UserStoreTests.swift in Sources */,
 				879745B127C629A200961864 /* KeychainManagerTests.swift in Sources */,
 				879745BB27C660E600961864 /* SecureStoreTests.swift in Sources */,
 			);

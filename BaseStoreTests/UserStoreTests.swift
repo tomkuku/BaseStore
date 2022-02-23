@@ -1,5 +1,5 @@
 //
-//  BaseStoreTests.swift
+//  UserStoreTests.swift
 //  BaseStoreTests
 //
 //  Created by Tomasz Kukułka on 22/02/2022.
@@ -37,7 +37,7 @@ private final class UserDefaultsMock: UserDefaults {
     }
 }
 
-class BaseStoreTests: XCTestCase {
+class UserStoreTests: XCTestCase {
     
     private var mock: UserDefaultsMock!
     private var sut: UserStore<UserStoreTestKey>!

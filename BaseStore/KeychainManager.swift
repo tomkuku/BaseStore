@@ -16,8 +16,6 @@ enum KeychainError: Error, Equatable {
 
 final class KeychainManager {
     
-    // MARK: Save
-    
     func save(passwordData data: Data, account: String) throws {
         let query = [
             kSecAttrAccount: account,
@@ -34,9 +32,7 @@ final class KeychainManager {
             throw KeychainError.unexpectedStatus(status)
         }
     }
-    
-    // MARK: Read
-    
+        
     func readPasswordData(forAccount account: String) throws -> Data {
         let query = [
             kSecAttrAccount: account,
@@ -48,12 +44,7 @@ final class KeychainManager {
         var itemCopy: AnyObject?
         let status = SecItemCopyMatching(query, &itemCopy)
         
-        if status == errSecItemNotFound {
-            throw KeychainError.itemNotFound
-            
-        } else if status != errSecSuccess {
-            throw KeychainError.unexpectedStatus(status)
-        }
+        try handleStatus(status)
         
         guard let password = itemCopy as? Data else {
             throw KeychainError.invalidItemFormat
@@ -61,9 +52,7 @@ final class KeychainManager {
         
         return password
     }
-    
-    // MARK: Update
-    
+        
     func update(passwordData: Data, forAccount account: String) throws {
         let query = [
             kSecAttrAccount: account,
@@ -76,16 +65,9 @@ final class KeychainManager {
         
         let status = SecItemUpdate(query, attributes)
         
-        if status == errSecItemNotFound {
-            throw KeychainError.itemNotFound
-            
-        } else if status != errSecSuccess {
-            throw KeychainError.unexpectedStatus(status)
-        }
+        try handleStatus(status)
     }
-    
-    // MARK: Delete
-    
+        
     func deletePassword(forAccount account: String) throws {
         let query = [
             kSecAttrAccount: account,
@@ -94,6 +76,10 @@ final class KeychainManager {
         
         let status = SecItemDelete(query)
         
+        try handleStatus(status)
+    }
+    
+    private func handleStatus(_ status: OSStatus) throws {
         if status == errSecItemNotFound {
             throw KeychainError.itemNotFound
             

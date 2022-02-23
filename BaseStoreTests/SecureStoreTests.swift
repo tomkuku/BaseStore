@@ -44,6 +44,8 @@ class SecureStoreTests: XCTestCase {
         super.tearDown()
     }
     
+    // MARK: Tests
+    
     func test_recievingNotSetValue() {
         let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
         
@@ -89,7 +91,7 @@ class SecureStoreTests: XCTestCase {
     private func clearKeychain() {
         let query = [
             kSecClass: kSecClassInternetPassword,
-            kSecAttrAccount: "test_password"
+            kSecAttrAccount: SecureTestTestKey.testUser.key
         ] as CFDictionary
         
         let status = SecItemDelete(query)
