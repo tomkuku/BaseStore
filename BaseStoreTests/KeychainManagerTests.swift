@@ -58,6 +58,23 @@ class KeychainManagerTests: XCTestCase {
         assertThat(readPassword, equalTo(readPassword))
     }
     
+    func test_deleteNotSavedPassword() {
+        let account = "account_12"
+
+        assertThrows(try sut.deletePassword(forAccount: account), KeychainError.itemNotFound)
+    }
+    
+    func test_deleteSavedPassword() {
+        let password = "2uQfXt5fMmazZQuRujXM"
+        let account = "account_12"
+        
+        assertNotThrows(try sut.save(passwordData: password.data(using: .utf8)!, account: account))
+        
+        assertNotThrows(try sut.deletePassword(forAccount: account))
+        
+        assertThrows(try sut.readPasswordData(forAccount: account), KeychainError.itemNotFound)
+    }
+    
     private func clearKeychain() {
         let query = [
             kSecClass: kSecClassInternetPassword,

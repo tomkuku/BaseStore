@@ -58,4 +58,8 @@ final class KeychainManager {
         
         return password
     }
+    
+    func deletePassword(forAccount account: String) throws {
+            
+    }
 }
