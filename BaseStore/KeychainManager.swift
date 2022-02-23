@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeychainError: Error {
+enum KeychainError: Error, Equatable {
     case itemNotFound
     case duplicateItem
     case invalidItemFormat
@@ -33,5 +33,9 @@ final class KeychainManager {
         guard status == errSecSuccess else {
             throw KeychainError.unexpectedStatus(status)
         }
+    }
+    
+    func readPasswordData(forAccount account: String) throws -> Data {
+        throw KeychainError.itemNotFound
     }
 }

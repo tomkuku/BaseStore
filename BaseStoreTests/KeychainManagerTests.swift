@@ -37,6 +37,27 @@ class KeychainManagerTests: XCTestCase {
         }
     }
     
+    func test_readingNotSavedPassword() {
+        let account = "account_12"
+        
+        assertThrows(try sut.readPasswordData(forAccount: account), KeychainError.itemNotFound)
+    }
+    
+    func test_readingSavedPassword() {
+        let password = "2uQfXt5fMmazZQuRujXM"
+        let account = "account_12"
+        
+        assertNotThrows(try sut.save(passwordData: password.data(using: .utf8)!, account: account))
+        
+        var readPasswordData: Data?
+        
+        assertNotThrows(readPasswordData = try sut.readPasswordData(forAccount: account))
+            
+        let readPassword = String(data: readPasswordData ?? Data(), encoding: .utf8)
+        
+        assertThat(readPassword, equalTo(readPassword))
+    }
+    
     private func clearKeychain() {
         let query = [
             kSecClass: kSecClassInternetPassword,
