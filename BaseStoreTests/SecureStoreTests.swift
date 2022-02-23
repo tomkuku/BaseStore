@@ -11,7 +11,7 @@ import Hamcrest
 
 @testable import BaseStore
 
-private struct UserTest {
+private struct UserTest: Equatable {
     let name: String
     let surname: String
     let age: UInt
@@ -38,14 +38,50 @@ class SecureStoreTests: XCTestCase {
         sut = SecureStore(keychainManager: KeychainManager())
     }
     
+    override func tearDown() {
+        clearKeychain()
+        
+        super.tearDown()
+    }
+    
     func test_recievingNotSetValue() {
+        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        
+        assertThat(recievedUser, equalTo(nil))
+    }
+    
+    func test_recievingSetValue() {
         let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
         
-        let readUser: UserTest? = sut.recieve(forKey: .testUser)
+        sut.set(value: user, forKey: .testUser)
         
-        assertThat(readUser?.name, equalTo(user.name))
-        assertThat(readUser?.surname, equalTo(user.surname))
-        assertThat(readUser?.age, equalTo(user.age))
-        assertThat(readUser?.isMale, equalTo(user.isMale))
+        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        
+        assertThat(recievedUser, equalTo(user))
+    }
+    
+    func test_removingSetValue() {
+        let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
+
+        sut.set(value: user, forKey: .testUser)
+
+        sut.remove(forKey: .testUser)
+
+        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+
+        assertThat(recievedUser, equalTo(nil))
+    }
+    
+    private func clearKeychain() {
+        let query = [
+            kSecClass: kSecClassInternetPassword,
+            kSecAttrAccount: "test_password"
+        ] as CFDictionary
+        
+        let status = SecItemDelete(query)
+        
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            assertionFailure(); return
+        }
     }
 }

@@ -17,7 +17,7 @@ final class SecureStore<KEY: BaseStoreKey>: BaseStore {
         self.keychainManager = keychainManager
     }
     
-    func set<T>(value: T, forKey key: KEY) {
+    func set<T>(value: T, forKey key: Key) {
         var helper: T = value
         let data = Data(bytes: &helper, count: MemoryLayout.size(ofValue: helper))
         
@@ -34,11 +34,13 @@ final class SecureStore<KEY: BaseStoreKey>: BaseStore {
         }
     }
     
-    func recieve<T>(forKey key: KEY) -> T? {
+    func recieve<T>(forKey key: Key) -> T? {
         var data: Data!
-        
+
         do {
             data = try keychainManager.readPasswordData(forAccount: key.key)
+        } catch KeychainError.itemNotFound {
+            return nil
         } catch {
             assertionFailure()
         }
@@ -50,7 +52,7 @@ final class SecureStore<KEY: BaseStoreKey>: BaseStore {
         return helper
     }
     
-    func remove(forKey key: KEY) {
+    func remove(forKey key: Key) {
         
     }
 }
