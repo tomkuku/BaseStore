@@ -60,6 +60,18 @@ final class KeychainManager {
     }
     
     func deletePassword(forAccount account: String) throws {
+        let query = [
+            kSecAttrAccount: account,
+            kSecClass: kSecClassInternetPassword
+        ] as CFDictionary
+        
+        let status = SecItemDelete(query)
+        
+        if status == errSecItemNotFound {
+            throw KeychainError.itemNotFound
             
+        } else if status != errSecSuccess {
+            throw KeychainError.unexpectedStatus(status)
+        }
     }
 }
