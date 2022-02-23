@@ -18,11 +18,36 @@ final class SecureStore<KEY: BaseStoreKey>: BaseStore {
     }
     
     func set<T>(value: T, forKey key: KEY) {
+        var helper: T = value
+        let data = Data(bytes: &helper, count: MemoryLayout.size(ofValue: helper))
         
+        do {
+            try keychainManager.save(passwordData: data, account: key.key)
+        } catch KeychainError.duplicateItem {
+            do {
+                try keychainManager.update(passwordData: data, forAccount: key.key)
+            } catch {
+                assertionFailure()
+            }
+        } catch {
+            assertionFailure()
+        }
     }
     
     func recieve<T>(forKey key: KEY) -> T? {
-        return nil
+        var data: Data!
+        
+        do {
+            data = try keychainManager.readPasswordData(forAccount: key.key)
+        } catch {
+            assertionFailure()
+        }
+        
+        let helper: T? = data.withUnsafeBytes {
+            return $0.load(as: T.self)
+        }
+        
+        return helper
     }
     
     func remove(forKey key: KEY) {

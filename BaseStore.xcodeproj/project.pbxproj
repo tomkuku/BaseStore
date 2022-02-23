@@ -139,9 +139,9 @@
 		878B698E27C4E9F700A035A4 /* BaseStoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				879745B027C629A200961864 /* KeychainManagerTests.swift */,
 				878B698F27C4E9F700A035A4 /* BaseStoreTests.swift */,
 				879745BA27C660E600961864 /* SecureStoreTests.swift */,
-				879745B027C629A200961864 /* KeychainManagerTests.swift */,
 			);
 			path = BaseStoreTests;
 			sourceTree = "<group>";
