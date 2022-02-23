@@ -53,6 +53,12 @@ final class SecureStore<KEY: BaseStoreKey>: BaseStore {
     }
     
     func remove(forKey key: Key) {
-        
+        do {
+            try keychainManager.deletePassword(forAccount: key.key)
+        } catch {
+            if error as? KeychainError != .itemNotFound {
+                assertionFailure()
+            }
+        }
     }
 }
