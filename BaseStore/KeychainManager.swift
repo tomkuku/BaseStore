@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeychainManagerError: Error {
+enum KeychainError: Error {
     case itemNotFound
     case duplicateItem
     case invalidItemFormat
@@ -17,6 +17,21 @@ enum KeychainManagerError: Error {
 final class KeychainManager {
     
     func save(passwordData data: Data, account: String) throws {
-        throw KeychainManagerError.itemNotFound
+        let query = [
+            kSecAttrAccount: account,
+            kSecClass: kSecClassInternetPassword,
+            kSecValueData: data,
+            kSecReturnAttributes: true
+        ] as CFDictionary
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        if status == errSecDuplicateItem {
+            throw KeychainError.duplicateItem
+        }
+        
+        guard status == errSecSuccess else {
+            throw KeychainError.unexpectedStatus(status)
+        }
     }
 }

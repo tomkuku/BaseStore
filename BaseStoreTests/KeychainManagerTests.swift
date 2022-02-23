@@ -26,7 +26,7 @@ class KeychainManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_savingGenericPassword() {
+    func test_savingPassword() {
         let password = "2uQfXt5fMmazZQuRujXM"
         let account = "account_12"
         
