@@ -26,6 +26,8 @@ class KeychainManagerTests: XCTestCase {
         super.tearDown()
     }
     
+    // MARK: Saving
+    
     func test_savingPassword() {
         let password = "2uQfXt5fMmazZQuRujXM"
         let account = "account_12"
@@ -36,6 +38,7 @@ class KeychainManagerTests: XCTestCase {
             XCTFail("Saving password faild with \(error.localizedDescription)!")
         }
     }
+    // MARK: Reading
     
     func test_readingNotSavedPassword() {
         let account = "account_12"
@@ -57,6 +60,36 @@ class KeychainManagerTests: XCTestCase {
         
         assertThat(readPassword, equalTo(readPassword))
     }
+    
+    // MARK: Updating
+    
+    func test_updateNotSavedPassword() {
+        let passwordData = "2uQfXt5fMmazZQuRujXM".data(using: .utf8)!
+        let account = "account_12"
+        
+        assertThrows(try sut.update(passwordData: passwordData, forAccount: account), KeychainError.itemNotFound)
+    }
+    
+    func test_updateSavedPassword() {
+        var password = "2uQfXt5fMmazZQuRujXM"
+        let account = "account_12"
+        
+        assertNotThrows(try sut.save(passwordData: password.data(using: .utf8)!, account: account))
+        
+        password = "kUf5JgYUmfLJ9bYJBGEqn"
+        
+        assertNotThrows(try sut.update(passwordData: password.data(using: .utf8)!, forAccount: account))
+        
+        var readPasswordData: Data?
+        
+        assertNotThrows(readPasswordData = try sut.readPasswordData(forAccount: account))
+        
+        let readPassword = String(data: readPasswordData ?? Data(), encoding: .utf8)
+        
+        assertThat(readPassword, equalTo(password))
+    }
+    
+    // MARK: Deleting
     
     func test_deleteNotSavedPassword() {
         let account = "account_12"

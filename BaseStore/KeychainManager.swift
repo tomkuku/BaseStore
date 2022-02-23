@@ -59,6 +59,10 @@ final class KeychainManager {
         return password
     }
     
+    func update(passwordData: Data, forAccount account: String) throws {
+        
+    }
+    
     func deletePassword(forAccount account: String) throws {
         let query = [
             kSecAttrAccount: account,
