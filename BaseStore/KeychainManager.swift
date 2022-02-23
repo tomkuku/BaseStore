@@ -16,12 +16,13 @@ enum KeychainError: Error, Equatable {
 
 final class KeychainManager {
     
+    // MARK: Save
+    
     func save(passwordData data: Data, account: String) throws {
         let query = [
             kSecAttrAccount: account,
             kSecClass: kSecClassInternetPassword,
-            kSecValueData: data,
-            kSecReturnAttributes: true
+            kSecValueData: data
         ] as CFDictionary
         
         let status = SecItemAdd(query, nil)
@@ -34,6 +35,8 @@ final class KeychainManager {
         }
     }
     
+    // MARK: Read
+    
     func readPasswordData(forAccount account: String) throws -> Data {
         let query = [
             kSecAttrAccount: account,
@@ -43,7 +46,7 @@ final class KeychainManager {
         ] as CFDictionary
         
         var itemCopy: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &itemCopy)
+        let status = SecItemCopyMatching(query, &itemCopy)
         
         if status == errSecItemNotFound {
             throw KeychainError.itemNotFound
@@ -59,9 +62,29 @@ final class KeychainManager {
         return password
     }
     
+    // MARK: Update
+    
     func update(passwordData: Data, forAccount account: String) throws {
+        let query = [
+            kSecAttrAccount: account,
+            kSecClass: kSecClassInternetPassword
+        ] as CFDictionary
         
+        let attributes = [
+            kSecValueData: passwordData
+        ] as CFDictionary
+        
+        let status = SecItemUpdate(query, attributes)
+        
+        if status == errSecItemNotFound {
+            throw KeychainError.itemNotFound
+            
+        } else if status != errSecSuccess {
+            throw KeychainError.unexpectedStatus(status)
+        }
     }
+    
+    // MARK: Delete
     
     func deletePassword(forAccount account: String) throws {
         let query = [
