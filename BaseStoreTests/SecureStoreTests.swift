@@ -60,6 +60,20 @@ class SecureStoreTests: XCTestCase {
         assertThat(recievedUser, equalTo(user))
     }
     
+    func test_updateValue() {
+        var user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
+        
+        sut.set(value: user, forKey: .testUser)
+        
+        user = UserTest(name: "Ashly", surname: "Burch", age: 33, isMale: false)
+        
+        sut.set(value: user, forKey: .testUser)
+        
+        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        
+        assertThat(recievedUser, equalTo(user))
+    }
+    
     func test_removingSetValue() {
         let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
 
