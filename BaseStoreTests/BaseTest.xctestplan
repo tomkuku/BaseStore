@@ -1,0 +1,47 @@
+{
+  "configurations" : [
+    {
+      "id" : "3CF6DF06-3D76-4BC6-B30E-DC6E5755B124",
+      "name" : "TSan",
+      "options" : {
+        "guardMallocEnabled" : false,
+        "mallocGuardEdgesEnabled" : false,
+        "nsZombieEnabled" : true,
+        "testExecutionOrdering" : "random",
+        "threadSanitizerEnabled" : true
+      }
+    },
+    {
+      "id" : "1D510B1D-C6FD-4D8F-8EA7-717129C2B41B",
+      "name" : "MemoryManagment",
+      "options" : {
+        "guardMallocEnabled" : true,
+        "mallocGuardEdgesEnabled" : true,
+        "mallocScribbleEnabled" : true,
+        "mallocStackLoggingOptions" : {
+          "loggingType" : "liveAllocations"
+        },
+        "nsZombieEnabled" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:BaseStore.xcodeproj",
+      "identifier" : "878B697127C4E8A600A035A4",
+      "name" : "BaseStore"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BaseStore.xcodeproj",
+        "identifier" : "878B698C27C4E9F700A035A4",
+        "name" : "BaseStoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

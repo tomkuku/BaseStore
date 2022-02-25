@@ -1,15 +1,11 @@
 //
-//  BaseStore.swift
+//  UserStore.swift
 //  BaseStore
 //
-//  Created by Tomasz Kukułka on 22/02/2022.
+//  Created by Tomasz Kukułka on 23/02/2022.
 //
 
 import Foundation
-
-protocol BaseStoreKey {
-    var key: String { get }
-}
 
 enum UserStoreKey: BaseStoreKey {
     var key: String {
@@ -17,13 +13,6 @@ enum UserStoreKey: BaseStoreKey {
         default: return ""
         }
     }
-}
-
-protocol BaseStore {
-    associatedtype Key: BaseStoreKey
-    func set<T>(value: T, forKey key: Key)
-    func recieve<T>(forKey key: Key) -> T?
-    func remove(forKey key: Key)
 }
 
 final class UserStore<KEY: BaseStoreKey>: BaseStore {
