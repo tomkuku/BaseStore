@@ -32,11 +32,7 @@ class KeychainManagerTests: XCTestCase {
         let password = "2uQfXt5fMmazZQuRujXM"
         let account = "account_12"
         
-        do {
-            try sut.save(passwordData: password.data(using: .utf8)!, account: account)
-        } catch {
-            XCTFail("Saving password faild with \(error.localizedDescription)!")
-        }
+        assertNotThrows(try sut.save(passwordData: password.data(using: .utf8)!, account: account))
     }
     
     func test_savingDuplicatedPassword() {

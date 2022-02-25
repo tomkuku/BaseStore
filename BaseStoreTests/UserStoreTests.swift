@@ -43,11 +43,7 @@ class UserStoreTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_setValue() {
-        let value: Int = 71
-        
-        sut.set(value: value, forKey: .testValue)
-    }
+    // Set + Receive
     
     func test_receivingNotSetValue() {
         let recievedValue: Int? = sut.recieve(forKey: .testValue)
@@ -57,39 +53,49 @@ class UserStoreTests: XCTestCase {
     
     func test_recievingSetValue() {
         let value: Int = 71
-
+        
         sut.set(value: value, forKey: .testValue)
-
+        
         let recievedValue: Int? = sut.recieve(forKey: .testValue)
-
+        
         assertThat(value == recievedValue)
     }
-
+    
+    // Update
+    
     func test_updatingAndRecievingValue() {
         var value: Int = 45
-
+        
         sut.set(value: value, forKey: .testValue)
-
-        var recievedValue: Int? = sut.recieve(forKey: .testValue)
-
+        
         value = 99
-
+        
         sut.set(value: value, forKey: .testValue)
-
-        recievedValue = sut.recieve(forKey: .testValue)
-
+        
+        let recievedValue: Int? = sut.recieve(forKey: .testValue)
+        
         assertThat(value == recievedValue)
     }
-
+    
+    // Remove
+    
+    func test_removingNotSetValue() {
+        sut.remove(forKey: .testValue)
+        
+        let recievedUser: Int? = sut.recieve(forKey: .testValue)
+        
+        assertThat(recievedUser, equalTo(nil))
+    }
+    
     func test_removingValue() {
         let piValue: Int = 88
-
+        
         sut.set(value: piValue, forKey: .testValue)
-
+        
         sut.remove(forKey: .testValue)
-
+        
         let recievedValue: Int? = sut.recieve(forKey: .testValue)
-
+        
         assertThat(recievedValue, nilValue())
     }
 }

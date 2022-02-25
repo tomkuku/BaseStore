@@ -11,7 +11,7 @@ import Hamcrest
 
 @testable import BaseStore
 
-private struct UserTest: Equatable {
+private struct User: Equatable {
     let name: String
     let surname: String
     let age: UInt
@@ -55,53 +55,59 @@ class SecureStoreTests: XCTestCase {
     
     // MARK: Tests
     
+    // Set + Receive
+    
     func test_receivingNotSetValue() {
-        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        let recievedUser: User? = sut.recieve(forKey: .testUser)
         
         assertThat(recievedUser, equalTo(nil))
     }
     
     func test_receivingSetValue() {
-        let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
+        let user = User(name: "John", surname: "Smith", age: 27, isMale: true)
         
         sut.set(value: user, forKey: .testUser)
         
-        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        let recievedUser: User? = sut.recieve(forKey: .testUser)
         
         assertThat(recievedUser, equalTo(user))
     }
     
+    // Update
+    
     func test_updateValue() {
-        var user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
+        var user = User(name: "John", surname: "Smith", age: 27, isMale: true)
         
         sut.set(value: user, forKey: .testUser)
         
-        user = UserTest(name: "Ashly", surname: "Burch", age: 33, isMale: false)
+        user = User(name: "Ashly", surname: "Burch", age: 33, isMale: false)
         
         sut.set(value: user, forKey: .testUser)
         
-        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+        let recievedUser: User? = sut.recieve(forKey: .testUser)
         
         assertThat(recievedUser, equalTo(user))
     }
+    
+    // Delete
     
     func test_removingNotSetValue() {
         sut.remove(forKey: .testUser)
-
-        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
-
+        
+        let recievedUser: User? = sut.recieve(forKey: .testUser)
+        
         assertThat(recievedUser, equalTo(nil))
     }
     
     func test_removingSetValue() {
-        let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
-
+        let user = User(name: "John", surname: "Smith", age: 27, isMale: true)
+        
         sut.set(value: user, forKey: .testUser)
-
+        
         sut.remove(forKey: .testUser)
-
-        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
-
+        
+        let recievedUser: User? = sut.recieve(forKey: .testUser)
+        
         assertThat(recievedUser, equalTo(nil))
     }
 }
