@@ -30,29 +30,38 @@ private enum SecureTestTestKey: BaseStoreKey {
 
 class SecureStoreTests: XCTestCase {
     
+    private var keychainManager: KeychainManager!
     private var sut: SecureStore<SecureTestTestKey>!
     
     override func setUp() {
         super.setUp()
         
+        keychainManager = KeychainManager()
         sut = SecureStore(keychainManager: KeychainManager())
     }
     
     override func tearDown() {
-        clearKeychain()
+        do {
+            try keychainManager.deletePassword(forAccount: SecureTestTestKey.testUser.key)
+        } catch {
+            // swiftlint:disable:next force_cast
+            if error as! KeychainError != .itemNotFound {
+                assertionFailure()
+            }
+        }
         
         super.tearDown()
     }
     
     // MARK: Tests
     
-    func test_recievingNotSetValue() {
+    func test_receivingNotSetValue() {
         let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
         
         assertThat(recievedUser, equalTo(nil))
     }
     
-    func test_recievingSetValue() {
+    func test_receivingSetValue() {
         let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
         
         sut.set(value: user, forKey: .testUser)
@@ -76,6 +85,14 @@ class SecureStoreTests: XCTestCase {
         assertThat(recievedUser, equalTo(user))
     }
     
+    func test_removingNotSetValue() {
+        sut.remove(forKey: .testUser)
+
+        let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
+
+        assertThat(recievedUser, equalTo(nil))
+    }
+    
     func test_removingSetValue() {
         let user = UserTest(name: "John", surname: "Smith", age: 27, isMale: true)
 
@@ -86,18 +103,5 @@ class SecureStoreTests: XCTestCase {
         let recievedUser: UserTest? = sut.recieve(forKey: .testUser)
 
         assertThat(recievedUser, equalTo(nil))
-    }
-    
-    private func clearKeychain() {
-        let query = [
-            kSecClass: kSecClassInternetPassword,
-            kSecAttrAccount: SecureTestTestKey.testUser.key
-        ] as CFDictionary
-        
-        let status = SecItemDelete(query)
-        
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            assertionFailure(); return
-        }
     }
 }
