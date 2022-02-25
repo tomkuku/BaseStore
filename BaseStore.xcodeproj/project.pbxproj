@@ -52,6 +52,7 @@
 		879745B627C65C7200961864 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		879745B827C65CE900961864 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		879745BA27C660E600961864 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
+		87C10B5527C8F24B00228C1F /* BaseTest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BaseTest.xctestplan; sourceTree = "<group>"; };
 		87F8874427C4EDA8007F68DD /* BaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStore.swift; sourceTree = "<group>"; };
 		889652206DC11C1729225478 /* Pods-BaseStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseStore.release.xcconfig"; path = "Target Support Files/Pods-BaseStore/Pods-BaseStore.release.xcconfig"; sourceTree = "<group>"; };
 		AC8F2B6F3C018C3516E063A4 /* Pods-BaseStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseStore.debug.xcconfig"; path = "Target Support Files/Pods-BaseStore/Pods-BaseStore.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 				879745B027C629A200961864 /* KeychainManagerTests.swift */,
 				878B698F27C4E9F700A035A4 /* UserStoreTests.swift */,
 				879745BA27C660E600961864 /* SecureStoreTests.swift */,
+				87C10B5527C8F24B00228C1F /* BaseTest.xctestplan */,
 			);
 			path = BaseStoreTests;
 			sourceTree = "<group>";
